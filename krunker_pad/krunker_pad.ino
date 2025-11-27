@@ -1,65 +1,79 @@
 /*
-  Pad per Krunker (krunker.io), utilizza Arduino Nano R4 e vari Arduino Modulino (Buttons, Knob e Movement)
-  - Utilizza Modulino Movement per controllare il movimento del mouse tramite Tastiera (per avanti/indietro) e Mouse (sinistra/destra)
-  - Utilizza Modulino Buttons per mappare i pulsanti al click del mouse (sparo) e ai tasti Spazio (salto) e Shift (accovacciarsi) della Tastiera
-  - Utilizza Modulino Knob per simulare il movimento laterale A/D (destra/sinistra) per un gameplay fluido
+  🎮 Krunker Pad con Arduino Nano R4 e Arduino Modulino
+  
+  Questo programma trasforma un Arduino Nano R4 con i moduli Modulino (Buttons, Knob e Movement) 
+  in un controller USB per il gioco Krunker (krunker.io).
+
+  Funzioni principali:
+  - **Movement:** Simula il movimento del mouse (rotazione orizzontale) e i tasti W/S (movimento avanti/indietro).
+  - **Buttons:** Mappa i pulsanti a 'Sparo' (Click Sinistro Mouse), 'Salto' (Spazio) e 'Accovacciarsi' (Shift).
+  - **Knob:** Simula i movimenti del mouse Su/Giù per alzare/abbassare la visuale e il cambio arma (Click del Knob).
 */
+
 #include <Arduino_Modulino.h>
 #include "Mouse.h"
 #include "Keyboard.h"
 
+// 🔄 Oggetti per l'interazione con i moduli Modulino
 ModulinoMovement movement;
 ModulinoButtons buttons;
 ModulinoKnob knob;
 
-// Variables to store accelerometer data
-float x, y, z;
-int lastKnobPos = 0;
-const float knowbSensitivity = 50.0;
-const float threshold = 0.15;
-const float sensitivity = 100.0;
+// 📊 Variabili per i dati dell'accelerometro (ModulinoMovement) e le impostazioni del Knob
+float x, y, z; // Variazioni sull'asse x, y, z rilevate dal modulo Movement
+int lastKnobPos = 0; // Posizione precedente del Knob per calcolare la differenza
+const float knowbSensitivity = 50.0; // Sensibilità per la rotazione (strafe) controllata dal Knob
+const float threshold = 0.15; // Soglia minima per considerare un movimento (per ignorare piccole variazioni)
+const float sensitivity = 100.0; // Sensibilità generale per l'input da ModulinoMovement
 
 void setup() {
   Serial.begin(115200);
+  // Attende che la seriale sia pronta (utile per schede come la Leonardo/Micro/Nano R4)
   while(!Serial) { }
 
-  Modulino.begin();
+  Modulino.begin(); // Inizializza la libreria Modulino
 
+  // Inizializzazione dei singoli moduli Modulino
   movement.begin();
   buttons.begin();
   knob.begin();        
 
+  // 💡 Accende i LED sui pulsanti (opzionale, per feedback visivo)
   buttons.setLeds(true, true, true);
 
-  delay(2000);
+  delay(1000); // Breve pausa per stabilizzare i moduli
 
+  // 🖱️ Inizializzazione delle interfacce HID (Human Interface Device) USB
   Mouse.begin();
   Keyboard.begin();
   
-  Serial.println("Nano R4: Krunker Pad");
+  Serial.println("Arduino Nano R4: Krunker Pad - Controller Inizializzato");
 
+  // Cattura la posizione iniziale del Knob
   lastKnobPos = knob.get();
 }
 
 void loop() {
-  /* ----------------------- MOVIMENTO MOUSE con MODULINO MOVEMENT ----------------------- */
+  /* ----------------------- 🧭 MOVIMENTO VISUALE E BASE (MODULINO MOVEMENT) ----------------------- */
   movement.update();
-  x = movement.getX(); // x is for turning left/right via Mouse left/right
-  y = movement.getY(); // y is for moving forward/back via Keyboard W/S
-  z = movement.getZ(); // z 
+  x = movement.getX(); // L'asse X del Modulino controlla la rotazione orizzontale (Mouse L/R)
+  y = movement.getY(); // L'asse Y del Modulino controlla il movimento avanti/indietro (Tastiera W/S)
+  z = movement.getZ(); // L'asse Z è disponibile, ma non usato in questo sketch per Krunker
 
 
-  int moveX = 0;
-  int moveY = 0;
-  int moveZ = 0;
+  int moveX = 0; // Offset di movimento orizzontale del mouse (rotazione)
+  int moveY = 0; // Segnale per il movimento avanti/indietro (W/S)
 
-  if (fabs(x) > threshold) moveX = int(-x * sensitivity);
-  if (fabs(y) > threshold) moveY = int(-y * sensitivity);
+  // 📐 Calcolo del movimento: applichiamo soglia e sensibilità
+  if (fabs(x) > threshold) moveX = int(-x * sensitivity); // Rotazione L/R del mouse
+  if (fabs(y) > threshold) moveY = int(-y * sensitivity); // Movimento Avanti/Indietro
 
+  // 🖱️ Rotazione del Mouse (Look)
   if (moveX != 0) {
-    Mouse.move(moveX, 0);
+    Mouse.move(moveX, 0); // Sposta il cursore solo sull'asse X
   }
 
+  // ⌨️ Movimento Avanti (W) / Indietro (S)
   if (moveY > 0) {
     Keyboard.press('W');
     Keyboard.release('S');
@@ -67,46 +81,48 @@ void loop() {
     Keyboard.press('S');
     Keyboard.release('W');
   } else {
+    // Rilascia entrambi se il movimento è nullo
     Keyboard.release('S');
     Keyboard.release('W');
   }
 
 
-
-  /* ----------------------- TASTI SPACE AND SHIFT e CLICK MOUSE con MODULINO BUTTONS --------------------------- */
-
+  /* ----------------------- 🕹️ GESTIONE PULSANTI (MODULINO BUTTONS) --------------------------- */
+  // Aggiorna lo stato dei pulsanti solo se ci sono stati cambiamenti
   if (buttons.update()) {
 
-    // shooting
+    // 🔫 Pulsante 'B' (Solitamente il più accessibile) -> Sparo (Click Sinistro Mouse)
     if (buttons.isPressed('B')) Mouse.press(MOUSE_LEFT);
     else Mouse.release(MOUSE_LEFT);
 
-    // jumping
+    // ⏫ Pulsante 'A' -> Salto (Tasto Spazio)
     if (buttons.isPressed('A')) Keyboard.press(' ');
     else Keyboard.release(' ');
 
-    // crouching
+    // 🔽 Pulsante 'C' -> Accovacciarsi (Tasto Shift Destro, o Left Shift)
     if (buttons.isPressed('C')) Keyboard.press(KEY_RIGHT_SHIFT);
     else Keyboard.release(KEY_RIGHT_SHIFT);
-
   }
 
-  /* ----------------------- GESTIONE KNOB → A / D ---------------------------- */
+  /* ----------------------- ⚙️ GESTIONE KNOB → CAMBIO ARMA / STRAFE A/D ---------------------------- */
 
-  int pos = knob.get();
-  int delta = (pos - lastKnobPos) * knowbSensitivity;
-  lastKnobPos = pos;
+  int pos = knob.get(); // Legge la posizione attuale del Knob
+  // Calcola la variazione (delta) moltiplicata per la sensibilità del Knob
+  // Nota: Questo delta può essere usato per lo strafing (A/D) o per muovere il mouse sull'asse Y (Mouse.move(0, delta))
+  // Lo lasciamo come Mouse.move(0, delta) per semplicità, ma andrebbe sostituito con A/D press/release per lo strafing.
+  int delta = (pos - lastKnobPos) * knowbSensitivity; 
+  lastKnobPos = pos; // Aggiorna l'ultima posizione
 
   if (delta != 0) {
-      Serial.print("Moving mouse");
-      Serial.println(delta);
-      Mouse.move(0, delta);
+      // ⚠️ ATTENZIONE: Se si desidera lo strafing (A/D) invece di muovere il mouse sull'asse Y, 
+      // questa sezione andrebbe riscritta per premere 'A' o 'D' usando Keyboar.press()
+      Mouse.move(0, delta); // Muove il mouse verticalmente (pitch). Potrebbe essere non ideale per Krunker.
   }
 
-  // use knob click to change weapon
+  // 🔁 Click del Knob → Cambio Arma (Tasto 'E')
   if (knob.isPressed()) {
       Keyboard.press('E');
-      delay(50);
+      delay(50); // Breve ritardo per registrare la pressione
       Keyboard.release('E');
   }
 

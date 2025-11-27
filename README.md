@@ -1,33 +1,36 @@
-# 🎮 MGW25 - Arduino&4Players Workshop 
-Milano Games Week 2025 – 4 Players Workshop in collaboration with Arduino
+# 🎮 MGW25 - Arduino&4Players Workshop
+Milano Games Week 2025 – 4 Players Workshop in collaborazione con Arduino
 
-This repository contains example sketches and resources to create your own custom USB joystick using the Arduino Nano R4 and Modulino modules. 
-Participants can experiment with different input components to build a personalized game controller.
+Questo repository contiene sketch di esempio e risorse per creare il tuo joystick USB personalizzato utilizzando Arduino Nano R4 e Modulino.
 
-## 🎮 Components
-The following components are used in the workshop:
+## ⚒️ Componenti
+Nel workshop vengono utilizzati i seguenti componenti:
 - 1 x Arduino Nano R4
 - 3 x Modulino Buttons
 - 2 x Modulino Knobs
 - 1 x Modulino Movement
 
-Participants can use all components together or select only some of them in their projects.
+I partecipanti possono utilizzare tutti i componenti insieme o selezionarne solo alcuni per il proprio progetto.
 
-## 📁 Repository Structure
-This repo contains several example sketches to help you get started.
+## 🚀 Come iniziare subito
 
-Each sketch is a starting point to inspire custom joystick designs. 
+_Vuoi creare il tuo primo joystick Arduino in 5 minuti?_
 
-You can combine inputs, adjust sensitivity, and create complex HID devices.
+👉 Leggi il file [INSTRUCTIONS.md](/INSTRUCTIONS.md) per seguire passo dopo passo il montaggio, la programmazione e il test del controller.
 
-Note: To change the Wire address of a Modulino, use the [Firmware Address Changer](https://github.com/arduino-libraries/Arduino_Modulino/tree/main/examples/Utilities/AddressChanger) included in the Modulino library under Utilities. This allows multiple Modulino devices to be used on the same bus without conflicts.
+## 📁 Struttura del repository
+Questo repository contiene diversi sketch di esempio per aiutarti a iniziare.
 
-## 📖 References
-- [Arduino Nano R4 official documentation](https://docs.arduino.cc/tutorials/nano-r4/user-manual/)
-- [Modulino Library](https://docs.arduino.cc/libraries/arduino_modulino/)
-- [Keyboard Library](https://docs.arduino.cc/language-reference/en/functions/usb/Keyboard/)
-- [Mouse Library](https://docs.arduino.cc/libraries/mouse/)
+Ogni sketch rappresenta un punto di partenza per ispirare la creazione di joystick personalizzati.
 
-## 👨🏻‍💻 Authors 
-- Leonardo Cavagnis
-- Christian Sarnataro
+Puoi combinare input di tastiera e mouse, regolare sensibilità e creare dispositivi HID complessi.
+
+## 📖 Riferimenti
+- [Arduino Nano R4 - Documentazione Ufficiale](https://docs.arduino.cc/tutorials/nano-r4/user-manual/)
+- [Modulino Libreria](https://docs.arduino.cc/libraries/arduino_modulino/)
+- [Keyboard Libreria](https://docs.arduino.cc/language-reference/en/functions/usb/Keyboard/)
+- [Mouse Libreria](https://docs.arduino.cc/libraries/mouse/)
+
+## 👨🏻‍💻 Autori 
+- [Leonardo Cavagnis](https://github.com/leonardocavagnis)
+- [Christian Sarnataro](https://github.com/csarnataro)

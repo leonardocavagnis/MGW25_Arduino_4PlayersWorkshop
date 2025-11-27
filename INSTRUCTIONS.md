@@ -12,6 +12,8 @@ Il controller può essere adattato anche per altri giochi: modificando lo sketch
 
 ![kit](img/kit.png)
 
+![kit](img/pad.png)
+
 # 📌 Istruzioni
 
 ### **1. Collegare i Modulino in cascata**

@@ -28,8 +28,6 @@ const float sensitivity = 100.0; // Sensibilità generale per l'input da Modulin
 
 void setup() {
   Serial.begin(115200);
-  // Attende che la seriale sia pronta (utile per schede come la Leonardo/Micro/Nano R4)
-  while(!Serial) { }
 
   Modulino.begin(); // Inizializza la libreria Modulino
 
@@ -75,15 +73,15 @@ void loop() {
 
   // ⌨️ Movimento Avanti (W) / Indietro (S)
   if (moveY > 0) {
-    Keyboard.press('W');
-    Keyboard.release('S');
+    Keyboard.press('w');
+    Keyboard.release('s');
   } else if (moveY < 0) {
-    Keyboard.press('S');
-    Keyboard.release('W');
+    Keyboard.press('s');
+    Keyboard.release('w');
   } else {
     // Rilascia entrambi se il movimento è nullo
-    Keyboard.release('S');
-    Keyboard.release('W');
+    Keyboard.release('s');
+    Keyboard.release('w');
   }
 
 
@@ -121,9 +119,9 @@ void loop() {
 
   // 🔁 Click del Knob → Cambio Arma (Tasto 'E')
   if (knob.isPressed()) {
-      Keyboard.press('E');
+      Keyboard.press('e');
       delay(50); // Breve ritardo per registrare la pressione
-      Keyboard.release('E');
+      Keyboard.release('e');
   }
 
 }

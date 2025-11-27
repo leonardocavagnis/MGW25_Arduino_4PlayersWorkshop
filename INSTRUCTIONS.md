@@ -1,6 +1,9 @@
 # Joystick USB con Arduino e Modulino
 
 Questa guida spiega come creare un semplice joystick USB per PC compatibile con il gioco sparatutto online [krunker.io](https://krunker.io/) utilizzando Arduino.
+
+![krunker](img/krunker.png)
+
 Il controller può essere adattato anche per altri giochi: modificando lo sketch è possibile emulare tasti di tastiera e movimenti del mouse a piacimento, personalizzando completamente il comportamento del joystick.
 
 # 🛠️ Requisiti
@@ -64,9 +67,10 @@ _Quando il caricamento è completato, la scheda si riavvierà automaticamente._
 
 ### **9. Testare il joystick nel gioco o in un editor di testo**
 
-_Dopo aver caricato lo sketch, l’Arduino verrà riconosciuto come dispositivo USB (tastiera e mouse).
-Provalo su [krunker.io](https://krunker.io/), che è uno sparatutto in prima persona, oppure se preferisci guidare testalo su [slowroads.io](https://slowroads.io/) o su qualsiasi altro gioco online che utilizza mouse e tastiera._
+_Dopo aver caricato lo sketch, l’Arduino verrà riconosciuto come dispositivo USB (tastiera e mouse)._
 
-### **10. Divertirsi! 🎮**
+_Provalo su [krunker.io](https://krunker.io/), che è uno sparatutto in prima persona, oppure se preferisci guidare testalo su [slowroads.io](https://slowroads.io/) o su qualsiasi altro gioco online che utilizza mouse e tastiera._
+
+### **10. Divertiti! 🎮**
 
 _Personalizza, sperimenta e goditi il tuo controller DIY._

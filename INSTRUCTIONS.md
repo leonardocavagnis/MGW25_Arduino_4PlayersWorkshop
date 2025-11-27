@@ -44,7 +44,14 @@ _Vai su: File → Nuovo_
 
 _Incolla tutto il codice dello sketch fornito all’interno del nuovo file._
 
-### **7. Compilare e caricare lo sketch sulla scheda**
+_Nota: non tutte le funzionalità del gioco Krunker sono implementate: lo sketch include solo un sottoinsieme di comandi sufficiente per un test del gioco._
+
+### **7. Comprendere e modificare lo sketch**
+
+_Il codice è pensato per essere facilmente adattabile:
+puoi modificare sensibilità, mappatura dei tasti, logiche di input e altro ancora._
+
+### **8. Compilare e caricare lo sketch sulla scheda**
 
 - Seleziona la scheda corretta su Strumenti → Scheda → Arduino Nano R4
 - Seleziona la porta USB corretta su Strumenti → Porta
@@ -54,11 +61,6 @@ _Incolla tutto il codice dello sketch fornito all’interno del nuovo file._
 _Quando il caricamento è completato, la scheda si riavvierà automaticamente._
 
 ![Arduino IDE - configurazione](img/config_ide.png)
-
-### **8. Comprendere e modificare lo sketch**
-
-_Il codice è pensato per essere facilmente adattabile:
-puoi modificare sensibilità, mappatura dei tasti, logiche di input e altro ancora._
 
 ### **9. Testare il joystick nel gioco o in un editor di testo**
 

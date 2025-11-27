@@ -27,6 +27,8 @@ _Collega Knob, Movement e Buttons come in figura (l’ordine dei Modulino non è
 
 ### **2. Posizionare e avvitare i modulino e la scheda sul joystick 3D a piacimento**
 
+_Disposizione consigliata:_
+
 ![Esempio posizionamento su pad](img/pad_collegamenti.png)
 
 ### **3. Collegare la scheda Arduino al pc con il cavo USB**

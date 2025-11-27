@@ -28,6 +28,8 @@ _Collega Knob, Movement e Buttons come in figura (l’ordine dei Modulino non è
 
 ### **3. Collegare la scheda Arduino al pc con il cavo USB**
 
+![Collegamento USB](img/usb.png)
+
 ### **4. Aprire Arduino IDE**
 
 _Avvia l’ambiente di sviluppo ufficiale di Arduino._

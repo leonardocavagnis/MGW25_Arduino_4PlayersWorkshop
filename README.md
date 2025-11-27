@@ -1,7 +1,7 @@
 # 🎮 MGW25 - Arduino&4Players Workshop
 Milano Games Week 2025 – 4 Players Workshop in collaborazione con Arduino
 
-Questo repository contiene sketch di esempio e risorse per creare il tuo joystick USB personalizzato utilizzando Arduino Nano R4 e Modulino.
+Questo repository contiene alcuni programmi di esempio per Arduino (chiamati anche sketch) e risorse per creare il tuo joystick USB personalizzato utilizzando Arduino Nano R4 e Modulino.
 
 ## ⚒️ Componenti
 Nel workshop vengono utilizzati i seguenti componenti:

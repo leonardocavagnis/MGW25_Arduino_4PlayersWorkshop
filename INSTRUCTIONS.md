@@ -34,6 +34,8 @@ _Collega Knob, Movement e Buttons come in figura (l’ordine dei Modulino non è
 
 _Avvia l’ambiente di sviluppo ufficiale di Arduino._
 
+![Arduino IDE](img/arduino_ide.png)
+
 ### **5. Creare un nuovo sketch**
 
 _Vai su: File → Nuovo_

@@ -21,7 +21,7 @@ Il controller può essere adattato anche per altri giochi: modificando lo sketch
 
 ### **1. Collegare i Modulino in cascata**
 
-_Collega Knob, Movement e Buttons come in figura (l’ordine dei Modulino non è importante)._
+_Collega Knob, Movement e Buttons come in figura_
 
 ![Collegamento Modulino](img/schema_collegamenti.png)
 

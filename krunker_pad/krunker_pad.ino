@@ -22,9 +22,11 @@ ModulinoKnob knob;
 // 📊 Variabili per i dati dell'accelerometro (ModulinoMovement) e le impostazioni del Knob
 float x, y, z; // Variazioni sull'asse x, y, z rilevate dal modulo Movement
 int lastKnobPos = 0; // Posizione precedente del Knob per calcolare la differenza
+bool padOn = false; // Per attivare/disattivare il pad, spento all'avvio
+
 const float knowbSensitivity = 50.0; // Sensibilità per la rotazione (strafe) controllata dal Knob
 const float threshold = 0.15; // Soglia minima per considerare un movimento (per ignorare piccole variazioni)
-const float sensitivity = 100.0; // Sensibilità generale per l'input da ModulinoMovement
+const float sensitivity = 70.0; // Sensibilità generale per l'input da ModulinoMovement
 
 void setup() {
   Serial.begin(115200);
@@ -39,7 +41,9 @@ void setup() {
   // 💡 Accende i LED sui pulsanti (opzionale, per feedback visivo)
   buttons.setLeds(true, true, true);
 
-  delay(1000); // Breve pausa per stabilizzare i moduli
+  delay(1000); // Breve sssssssssssss ssss sspausa per stabilizzare i moduli
+
+  buttons.setLeds(false, false, false);
 
   // 🖱️ Inizializzazione delle interfacce HID (Human Interface Device) USB
   Mouse.begin();
@@ -52,6 +56,18 @@ void setup() {
 }
 
 void loop() {
+  if (knob.isPressed()) {
+    
+    padOn = !padOn;
+    Serial.print("Pad enabled: ");
+    Serial.println(padOn);
+    delay(300);
+  }
+
+  buttons.setLeds(padOn, padOn, padOn);
+
+  if (!padOn) return;
+
   /* ----------------------- 🧭 MOVIMENTO VISUALE E BASE (MODULINO MOVEMENT) ----------------------- */
   movement.update();
   x = movement.getX(); // L'asse X del Modulino controlla la rotazione orizzontale (Mouse L/R)
@@ -84,22 +100,21 @@ void loop() {
     Keyboard.release('w');
   }
 
-
   /* ----------------------- 🕹️ GESTIONE PULSANTI (MODULINO BUTTONS) --------------------------- */
   // Aggiorna lo stato dei pulsanti solo se ci sono stati cambiamenti
   if (buttons.update()) {
+
+    // 🔽 Pulsante 'A' -> Mirino
+    if (buttons.isPressed('A')) Mouse.press(MOUSE_RIGHT);
+    else Mouse.release(MOUSE_RIGHT);
 
     // 🔫 Pulsante 'B' (Solitamente il più accessibile) -> Sparo (Click Sinistro Mouse)
     if (buttons.isPressed('B')) Mouse.press(MOUSE_LEFT);
     else Mouse.release(MOUSE_LEFT);
 
-    // ⏫ Pulsante 'A' -> Salto (Tasto Spazio)
-    if (buttons.isPressed('A')) Keyboard.press(' ');
+    // ⏫ Pulsante 'C' -> Salto (Tasto Spazio)
+    if (buttons.isPressed('C')) Keyboard.press(' ');
     else Keyboard.release(' ');
-
-    // 🔽 Pulsante 'C' -> Accovacciarsi (Tasto Shift Destro, o Left Shift)
-    if (buttons.isPressed('C')) Keyboard.press(KEY_RIGHT_SHIFT);
-    else Keyboard.release(KEY_RIGHT_SHIFT);
   }
 
   /* ----------------------- ⚙️ GESTIONE KNOB → CAMBIO ARMA / STRAFE A/D ---------------------------- */
@@ -117,11 +132,11 @@ void loop() {
       Mouse.move(0, delta); // Muove il mouse verticalmente (pitch). Potrebbe essere non ideale per Krunker.
   }
 
-  // 🔁 Click del Knob → Cambio Arma (Tasto 'E')
-  if (knob.isPressed()) {
-      Keyboard.press('e');
-      delay(50); // Breve ritardo per registrare la pressione
-      Keyboard.release('e');
-  }
+  // // 🔁 Click del Knob → Cambio Arma (Tasto 'E')
+  // if (knob.isPressed()) {
+  //     Keyboard.press('e');
+  //     delay(50); // Breve ritardo per registrare la pressione
+  //     Keyboard.release('e');
+  // }
 
 }

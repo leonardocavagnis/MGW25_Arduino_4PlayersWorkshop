@@ -73,6 +73,8 @@ _Dopo aver caricato lo sketch, l’Arduino verrà riconosciuto come dispositivo 
 
 _Provalo su [krunker.io](https://krunker.io/), che è uno sparatutto in prima persona, oppure se preferisci guidare testalo su [slowroads.io](https://slowroads.io/) o su qualsiasi altro gioco online che utilizza mouse e tastiera._
 
+![Schema con istruzioni](img/pad_instructions.png)
+
 ### **10. Divertiti! 🎮**
 
 _Personalizza, sperimenta e goditi il tuo controller DIY._

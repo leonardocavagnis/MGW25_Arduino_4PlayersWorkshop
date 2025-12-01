@@ -41,7 +41,7 @@ void setup() {
   // 💡 Accende i LED sui pulsanti (opzionale, per feedback visivo)
   buttons.setLeds(true, true, true);
 
-  delay(1000); // Breve sssssssssssss ssss sspausa per stabilizzare i moduli
+  delay(1000); // Breve pausa per stabilizzare i moduli
 
   buttons.setLeds(false, false, false);
 
